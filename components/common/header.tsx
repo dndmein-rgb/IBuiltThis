@@ -1,9 +1,10 @@
 import { CompassIcon, HomeIcon, SparkleIcon, SparklesIcon } from "lucide-react";
 import Link from "next/link";
 import { Button } from "../ui/button";
+import { Show, SignIn, SignInButton, SignUp, SignUpButton, UserButton } from "@clerk/nextjs";
 
 export default function Header() {
-  const isSignedIn = true;
+  const isSignedIn = false;
   const Logo = () => {
     return (
       <Link href="/" className="flex items-center gap-2 group">
@@ -39,19 +40,24 @@ export default function Header() {
           </nav>
 
           <div className="flex items-center gap-3">
-            {isSignedIn ? (
+            <Show when="signed-out">
+              <SignInButton  />
+              <SignUpButton>
+                <Button >
+                  Sign Up
+                </Button>
+              </SignUpButton>
+            </Show>
+            <Show when="signed-in">
               <Button asChild>
                 <Link href="/submit">
                   <SparklesIcon className="size-4" />
                   Submit Project
                 </Link>
               </Button>
-            ) : (
-              <>
-                <Button variant="ghost">Sign-in</Button>
-                <Button>Sign-up</Button>
-              </>
-            )}
+              <UserButton />
+            </Show>
+            
           </div>
         </div>
       </div>
