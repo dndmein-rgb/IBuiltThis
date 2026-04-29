@@ -10,15 +10,10 @@ import { Badge } from "@/components/ui/badge";
 import { ChevronDownIcon, ChevronUpIcon, StarIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { InferSelectModel } from "drizzle-orm";
+import { products } from "@/db/schema";
 
-interface Product {
-  id: number;
-  name: string;
-  tags: string[];
-  description: string;
-  isFeatured: boolean;
-  votes: number;
-}
+type Product=InferSelectModel<typeof products >;
 export default function ProductCard({ product }: { product: Product }) {
   const hasVoted=false;
   return (
@@ -32,7 +27,7 @@ export default function ProductCard({ product }: { product: Product }) {
                 <CardTitle className="text-lg group:hover:text-primary transition-colors">
                   {product.name}
                 </CardTitle>
-                {product.isFeatured && (
+                {product.voteCount>100 && (
                   <Badge className="gap-1 bg-primary text-primary-foreground">
                     <StarIcon className="size-3" fill="yellow" />
                     Featured
@@ -51,8 +46,8 @@ export default function ProductCard({ product }: { product: Product }) {
               >
                 <ChevronUpIcon />
               </Button>
-              <span className="text-sm font-semibold transition-colors test-foreground">
-                10
+              <span className="text-sm font-semibold transition-colors text-foreground">
+                {product.voteCount}
               </span>
               <Button
                 variant="ghost"
@@ -66,7 +61,7 @@ export default function ProductCard({ product }: { product: Product }) {
         </CardHeader>
 
         <CardFooter className="flex items-center gap-2 mt-auto">
-          {product.tags.map((tag) => (
+          {product.tags?.map((tag) => (
             <Badge variant={"secondary"} key={tag}>
               {tag}
             </Badge>

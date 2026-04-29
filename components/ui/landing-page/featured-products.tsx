@@ -3,26 +3,11 @@ import { ArrowUpRightIcon, StarIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import ProductCard from "@/components/products/product-card"
+import { getFeaturedProducts } from "@/lib/products/product-select";
 
-const featuredProducts=[
-  {
-    id:1,
-    name:"ParityKit",
-    description:"A toolkit for creating parity products",
-    tags:["SaaS","Pricing","Global"],
-    votes:635,
-    isFeatured:true,
-  },
-  {
-    id:2,
-    name:"Mordern Full Stack Next.js Course",
-    description:"Learn to build production-ready full stack apps with Next.js",
-    tags:["Next.js","Full-Stack","Course"],
-    votes:123,
-    isFeatured:false,
-  },
-]
-export default function FeaturedProducts() {
+
+export default async function FeaturedProducts() {
+  const featuredProducts=await getFeaturedProducts();
   return (
     <section className="py-20 bg-muted/20">
       <div className="wrapper">
