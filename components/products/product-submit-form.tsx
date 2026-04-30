@@ -7,7 +7,7 @@ import { useActionState } from "react";
 
 const initialState = {
   success: false,
-  errors: undefined,
+    errors:{},
   message: "",
 };
 export default function ProductSubmitForm() {
@@ -15,6 +15,7 @@ export default function ProductSubmitForm() {
     addProductAction,
     initialState,
   );
+  const {errors,message,success}=state;
 
   return (
     <form className="space-y-6" action={formAction}>
@@ -25,7 +26,7 @@ export default function ProductSubmitForm() {
         placeholder="My Awesome Product"
         required
         onChange={() => {}}
-        error=""
+          error={errors?.name}
       />
       <FormField
         label="Slug"
@@ -34,7 +35,7 @@ export default function ProductSubmitForm() {
         placeholder="my-awesome-product"
         required
         onChange={() => {}}
-        error=""
+        error={errors?.slug}
         helperText="URL-friendly version of your product name"
       />
       <FormField
@@ -44,7 +45,7 @@ export default function ProductSubmitForm() {
         placeholder="Tell us more about your product"
         required
         onChange={() => {}}
-        error=""
+        error={errors?.description}
         textarea
       />
       <FormField
@@ -54,7 +55,7 @@ export default function ProductSubmitForm() {
         placeholder="A brief, catchy description"
         required
         onChange={() => {}}
-        error=""
+        error={errors?.tagline}
       />
       <FormField
         label="Website Url"
@@ -63,7 +64,7 @@ export default function ProductSubmitForm() {
         placeholder="https://www.yourproduct.com"
         required
         onChange={() => {}}
-        error=""
+        error={errors?.websiteUrl}
         helperText="Enter your product's website or landing page"
       />
 
@@ -74,7 +75,7 @@ export default function ProductSubmitForm() {
         placeholder="AI, Productivity, SaaS"
         required
         onChange={() => {}}
-        error=""
+        error={errors?.tags}
         helperText="Comma-separated tags (e.g., AI, SaaS, Productivity)"
       />
 
