@@ -1,8 +1,24 @@
-import { CompassIcon, HomeIcon, LoaderIcon, SparkleIcon, SparklesIcon } from "lucide-react";
+import {
+  BuildingIcon,
+  CompassIcon,
+  HomeIcon,
+  LoaderIcon,
+  SparkleIcon,
+  SparklesIcon,
+} from "lucide-react";
 import Link from "next/link";
 import { Button } from "../ui/button";
-import { Show, SignIn, SignInButton, SignUp, SignUpButton, UserButton } from "@clerk/nextjs";
+import {
+  OrganizationSwitcher,
+  Show,
+  SignIn,
+  SignInButton,
+  SignUp,
+  SignUpButton,
+  UserButton,
+} from "@clerk/nextjs";
 import { Suspense } from "react";
+import CustomUserButton from "./custom-user-button";
 
 export default function Header() {
   const isSignedIn = false;
@@ -41,26 +57,29 @@ export default function Header() {
           </nav>
 
           <div className="flex items-center gap-3">
-            <Suspense fallback={<div><LoaderIcon className="size-4 animate-spin" /></div>} >
-            <Show when="signed-out">
-              <SignInButton  />
-              <SignUpButton>
-                <Button >
-                  Sign Up
+            <Suspense
+              fallback={
+                <div>
+                  <LoaderIcon className="size-4 animate-spin" />
+                </div>
+              }
+            >
+              <Show when="signed-out">
+                <SignInButton />
+                <SignUpButton>
+                  <Button>Sign Up</Button>
+                </SignUpButton>
+              </Show>
+              <Show when="signed-in">
+                <Button asChild>
+                  <Link href="/submit">
+                    <SparklesIcon className="size-4" />
+                    Submit Project
+                  </Link>
                 </Button>
-              </SignUpButton>
-            </Show>
-            <Show when="signed-in">
-              <Button asChild>
-                <Link href="/submit">
-                  <SparklesIcon className="size-4" />
-                  Submit Project
-                </Link>
-              </Button>
-              <UserButton />
-            </Show>
+                <CustomUserButton />
+              </Show>
             </Suspense>
-            
           </div>
         </div>
       </div>
