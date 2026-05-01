@@ -1,10 +1,22 @@
 "use client";
+
+import { useEffect, useState } from "react";
 import { OrganizationSwitcher, UserButton } from "@clerk/nextjs";
 import { Building2Icon, BuildingIcon } from "lucide-react";
 import { Button } from "../ui/button";
 import Link from "next/link";
 
 export default function CustomUserButton() {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return <div className="h-10 w-10 bg-muted rounded-lg animate-pulse" />;
+  }
+
   return (
     <UserButton>
       <UserButton.UserProfilePage
@@ -33,11 +45,11 @@ export default function CustomUserButton() {
       >
         <div className="p-4">
           <h2>Admin Panel</h2>
-          <Link href="/admin" className="w-full justify-start">
-            <Button size="default" className="w-full justify-start">
+          <Button asChild size="default" className="w-full justify-start">
+            <Link href="/admin">
               Go to Admin Panel
-            </Button>
-          </Link>
+            </Link>
+          </Button>
         </div>
       </UserButton.UserProfilePage>
     </UserButton>
