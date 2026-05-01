@@ -58,7 +58,7 @@ export default function Header() {
           <div className="flex items-center gap-3">
             <Suspense
               fallback={
-                <div>
+                <div className="h-10 w-10 bg-muted rounded-lg flex items-center justify-center">
                   <LoaderIcon className="size-4 animate-spin" />
                 </div>
               }
@@ -76,7 +76,13 @@ export default function Header() {
                     Submit Project
                   </Link>
                 </Button>
-                <CustomUserButton />
+                <Suspense
+                  fallback={
+                    <div className="h-10 w-10 bg-muted rounded-lg animate-pulse" />
+                  }
+                >
+                  <CustomUserButton />
+                </Suspense>
               </Show>
             </Suspense>
           </div>
