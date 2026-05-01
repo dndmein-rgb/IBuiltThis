@@ -21,7 +21,6 @@ import { Suspense } from "react";
 import CustomUserButton from "./custom-user-button";
 
 export default function Header() {
-  const isSignedIn = false;
   const Logo = () => {
     return (
       <Link href="/" className="flex items-center gap-2 group">
