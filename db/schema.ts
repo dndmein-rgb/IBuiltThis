@@ -8,6 +8,7 @@ import {
   json,
   uniqueIndex,
   index,
+  primaryKey,
 } from "drizzle-orm/pg-core";
 
 // ============= PRODUCTS =============
@@ -45,5 +46,23 @@ export const products = pgTable(
     organizationIdx: index("products_organization_idx").on(
       table.organizationId
     ),
+  })
+);
+
+// ============= VOTES =============
+export const votes = pgTable(
+  "votes",
+  {
+    id: serial("id").primaryKey(),
+    productId: integer("product_id").notNull(),
+    userId: varchar("user_id", { length: 255 }).notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
+  },
+  (table) => ({
+    userProductIdx: uniqueIndex("votes_user_product_idx").on(
+      table.userId,
+      table.productId
+    ),
+    productIdx: index("votes_product_idx").on(table.productId),
   })
 );
