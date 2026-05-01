@@ -20,7 +20,7 @@ export default async function RecentlyLaunchedproducts(){
                             <ProductCard key={product.id} product={product} />
                           ))} 
                             </div> :(
-                                <EmptyState icon={CalendarIcon} message="No products launched in the last week.Check back soon for new launche.!" />
+                                <EmptyState icon={CalendarIcon} message="No products launched in the last week.Check back soon for new launches.!" />
                             )}
             </div>
         </section>

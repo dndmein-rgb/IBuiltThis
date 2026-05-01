@@ -15,7 +15,11 @@ export const approveProductAction = async (productId: ProductType["id"]) => {
       .set({ status: "approved", approvedAt: new Date() })
       .where(eq(products.id, productId));
 
+    // Revalidate all paths that display products
     revalidatePath("/admin");
+    revalidatePath("/");
+    revalidatePath("/explore");
+    revalidatePath("/all-products");
 
     return {
       success: true,
@@ -38,7 +42,11 @@ export const rejectProductAction = async (productId: ProductType["id"]) => {
       .set({ status: "rejected" })
       .where(eq(products.id, productId));
 
+    // Revalidate all paths that display products
     revalidatePath("/admin");
+    revalidatePath("/");
+    revalidatePath("/explore");
+    revalidatePath("/all-products");
 
     return {
       success: true,
@@ -60,7 +68,11 @@ export const deleteProductAction = async (productId: ProductType["id"]) => {
       .delete(products)
       .where(eq(products.id, productId));
 
+    // Revalidate all paths that display products
     revalidatePath("/admin");
+    revalidatePath("/");
+    revalidatePath("/explore");
+    revalidatePath("/all-products");
 
     return {
       success: true,

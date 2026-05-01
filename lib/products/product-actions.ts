@@ -67,6 +67,12 @@ export const addProductAction = async (
       userId,
     });
 
+    // Revalidate all paths that display products
+    revalidatePath("/admin");
+    revalidatePath("/");
+    revalidatePath("/explore");
+    revalidatePath("/all-products");
+
     return {
       success: true,
       message: "Product submitted successfully! It will be reviewed shortly.",
@@ -141,6 +147,8 @@ export const upvoteProductAction = async (productId: number) => {
       .where(eq(products.id, productId));
 
     revalidatePath("/");
+    revalidatePath("/explore");
+    revalidatePath("/all-products");
     revalidatePath(`/products/${productId}`);
 
     return {
@@ -210,6 +218,8 @@ export const downvoteProductAction = async (productId: number) => {
       .where(eq(products.id, productId));
 
     revalidatePath("/");
+    revalidatePath("/explore");
+    revalidatePath("/all-products");
     revalidatePath(`/products/${productId}`);
 
     return {

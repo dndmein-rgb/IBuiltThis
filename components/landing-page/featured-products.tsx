@@ -19,7 +19,7 @@ export default async function FeaturedProducts() {
             description="Top picks from our community"
           />
           <Button variant="outline" asChild className="hidden sm:flex">
-            <Link href="/products">
+            <Link href="/all-products">
             View All <ArrowUpRightIcon className="size-4" />
             </Link>
             </Button>

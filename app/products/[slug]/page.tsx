@@ -19,6 +19,8 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
 async function ProductContent({ slug }: { slug: string }) {
+  "use cache";
+  
   const product = await getProductBySlug(slug);
 
   if (!product) {

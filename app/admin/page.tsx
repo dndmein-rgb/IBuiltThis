@@ -10,6 +10,8 @@ import { redirect } from "next/navigation";
 import { Suspense } from "react";
 
 async function AdminContent() {
+ 
+  
   const { userId } = await auth();
 
   if (!userId) {
@@ -19,8 +21,8 @@ async function AdminContent() {
   const response = await clerkClient();
   const user = await response.users.getUser(userId!);
 
-  const metadata = user.publicMetadata;
-  const isAdmin = metadata?.isAdmin ?? false;
+  const metadata = user.publicMetadata as Record<string, unknown> | undefined;
+  const isAdmin = (metadata?.isAdmin as boolean) ?? false;
 
   if (!isAdmin) {
     redirect("/");
